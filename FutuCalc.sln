@@ -1,5 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4A5A419E-C087-451B-8448-0D31857044C0}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		Dockerfile = Dockerfile
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutuCalc.API", "FutuCalc.API\FutuCalc.API.csproj", "{F16D55B0-CDC1-4469-86D2-58E967F875F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutuCalc.Tests", "FutuCalc.Tests\FutuCalc.Tests.csproj", "{1393932F-DBB7-4641-85A6-9DD02F0B9FCF}"
