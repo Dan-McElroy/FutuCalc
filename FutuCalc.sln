@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutuCalc.API", "FutuCalc.API\FutuCalc.API.csproj", "{F16D55B0-CDC1-4469-86D2-58E967F875F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutuCalc.Tests", "FutuCalc.Tests\FutuCalc.Tests.csproj", "{1393932F-DBB7-4641-85A6-9DD02F0B9FCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutuCalc.Core", "FutuCalc.Core\FutuCalc.Core.csproj", "{96D3FCBA-3DD2-47E6-A5B9-FD4DDC37436B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{F16D55B0-CDC1-4469-86D2-58E967F875F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F16D55B0-CDC1-4469-86D2-58E967F875F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F16D55B0-CDC1-4469-86D2-58E967F875F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1393932F-DBB7-4641-85A6-9DD02F0B9FCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1393932F-DBB7-4641-85A6-9DD02F0B9FCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1393932F-DBB7-4641-85A6-9DD02F0B9FCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1393932F-DBB7-4641-85A6-9DD02F0B9FCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96D3FCBA-3DD2-47E6-A5B9-FD4DDC37436B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96D3FCBA-3DD2-47E6-A5B9-FD4DDC37436B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96D3FCBA-3DD2-47E6-A5B9-FD4DDC37436B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96D3FCBA-3DD2-47E6-A5B9-FD4DDC37436B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -5,5 +5,9 @@
         <RootNamespace>FutuCalc</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FutuCalc.Core\FutuCalc.Core.csproj" />
+    </ItemGroup>
+
 
 </Project>
