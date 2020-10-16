@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FutuCalc.API.Extensions;
 using FutuCalc.API.Models;
 using FutuCalc.Core.Calculation;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +23,12 @@ namespace FutuCalc.API.Controllers
         [Route("{encodedEquation}")]
         public CalculationResult Get(string encodedEquation)
         {
-            var equation = DecodeBase64(encodedEquation);
+            var paddedEquation = encodedEquation.PadForBase64();
+            if (!paddedEquation.IsValidBase64())
+            {
+                return CalculationResult.Error();
+            }
+            var equation = paddedEquation.DecodeBase64();
 
             try
             {
@@ -38,12 +39,6 @@ namespace FutuCalc.API.Controllers
             {
                 return CalculationResult.Error();
             }
-        }
-
-        private static string DecodeBase64(string encoded)
-        {
-            var decodedBytes = Convert.FromBase64String(encoded);
-            return Encoding.UTF8.GetString(decodedBytes);
         }
     }
 }
