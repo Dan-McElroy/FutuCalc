@@ -33,21 +33,35 @@ namespace FutuCalc.Core.Calculation
 
             var currentSymbol = string.Empty;
             var processingOperand = true;
+
             foreach (var token in equation.ToCharArray())
             {
+                if (char.IsWhiteSpace(token))
+                {
+                    continue;
+                }
+                var isOperator = operators.Contains(token);
                 // if space, wrap up the last symbol if not empty and move on
                 // if digit or punctuation, add to currentSymbol
                 // if token, wrap up the last symbol if not empty, then add this one, and move on
-                if ((char.IsWhiteSpace(token) || operators.Contains(token)) && !string.IsNullOrEmpty(currentSymbol))
+                if ((isOperator) && !string.IsNullOrEmpty(currentSymbol))
                 {
                     symbolStrings.Add(currentSymbol);
                     currentSymbol = string.Empty;
                 }
-
-                if (operators.Contains(token) || char.IsDigit(token) || char.IsPunctuation(token))
+                if (isOperator)
+                {
+                    symbolStrings.Add(token.ToString());
+                }
+                if (char.IsDigit(token) || token == '.')
                 {
                     currentSymbol += token;
                 }
+            }
+
+            if (!string.IsNullOrEmpty(currentSymbol))
+            {
+                symbolStrings.Add(currentSymbol);
             }
             return symbolStrings.Select(ParseSymbol);
         }
@@ -92,32 +106,37 @@ namespace FutuCalc.Core.Calculation
                 {
                     case Operand operand:
                         symbolQueue.Enqueue(operand);
-                        continue;
+                        break;
                     case OpenBracket bracket:
                         symbolStack.Push(bracket);
-                        continue;
+                        break;
                     case CloseBracket _:
                     {
                         while (symbolStack.Peek() is IQueueSymbol)
                         {
                             symbolQueue.Enqueue(symbolStack.Pop() as IQueueSymbol);
                         }
-
-                        symbolStack.Pop();
-                        continue;
+                        if (!symbolStack.TryPop(out _))
+                        {
+                            throw new InvalidOperationException("Non-matching number of brackets found in the equation.");
+                        }
+                        break;
                     }
                     case IStackSymbol stackSymbol:
                     {
-                        while (symbolStack.Any() && symbolStack.Peek().Priority > stackSymbol.Priority)
+                        while (symbolStack.TryPeek(out var topSymbol) && topSymbol.Priority >= stackSymbol.Priority)
                         {
                             symbolQueue.Enqueue(symbolStack.Pop() as IQueueSymbol);
                         }
                         symbolStack.Push(stackSymbol);
-                        continue;
+                        break;
                     }
                 }
             }
-
+            if (symbolStack.OfType<OpenBracket>().Any())
+            {
+                throw new InvalidOperationException("Non-matching number of brackets found in the equation.");
+            }
             while (symbolStack.Any())
             {
                 symbolQueue.Enqueue(symbolStack.Pop() as IQueueSymbol);
