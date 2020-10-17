@@ -6,7 +6,13 @@ namespace FutuCalc.Core.Symbols
     {
         public void Process(ref Stack<double> values)
         {
-            values.Push(Operate(values.Pop(), values.Pop()));
+            var firstValue = values.TryPop(out var x)
+                ? x
+                : 0;
+            var secondValue = values.TryPop(out var y)
+                ? y
+                : 0;
+            values.Push(Operate(secondValue, firstValue));
         }
 
         protected abstract double Operate(double first, double second);
