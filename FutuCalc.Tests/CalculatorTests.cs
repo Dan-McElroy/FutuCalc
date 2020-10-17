@@ -56,15 +56,15 @@ namespace FutuCalc.Tests
         [TestCase("4 / -2", -2)]
         [TestCase("-4 / 2", -2)]
         [TestCase("-4 / -2", 2)]
-        [TestCase("2 / 3", 2 / 3)]
+        [TestCase("2 / 3", 2d / 3)]
         public void CorrectCalculation_ForDivision(string equation, double expected)
         {
             AssertCalculation(equation, expected);
         }
 
         [TestCase("3 * 4 + 1 / 2", 12.5)]
-        [TestCase("3 / 4 * 1 + 3", 3)]
-        [TestCase("6 + 4 / 3 - 1", 5)]
+        [TestCase("3 / 4 * 1 + 3", 3.75)]
+        [TestCase("6 + 6 / 3 - 1", 7)]
         public void CorrectCalculation_ForMultipleOperators(string equation, double expected)
         {
             AssertCalculation(equation, expected);
