@@ -97,24 +97,17 @@ namespace FutuCalc.Tests
             Assert.Throws<ArgumentNullException>(() => calculator.Calculate(null));
         }
 
-        [TestCase("")]
-        [TestCase("    ")]
-        [TestCase("()")]
-        [TestCase("\t\n")]
-        public void ExceptionThrown_ForBlankEquation(string query)
-        {
-            Assert.Throws<InvalidOperationException>(() => calculator.Calculate(query));
-        }
-
         [TestCase("a")]
         [TestCase("7 % 2")]
         [TestCase("\"2\" + 1")]
+        [TestCase("2\n+\t3")]
         public void ExceptionThrown_ForInvalidCharacters(string query)
         {
             Assert.Throws<InvalidOperationException>(() => calculator.Calculate(query));
         }
 
         [TestCase("(3")]
+        [TestCase("3)")]
         [TestCase("(3)(")]
         [TestCase("1 + (2 + (1 - 4)")]
         public void ExceptionThrown_ForIncompleteBrackets(string query)
