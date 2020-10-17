@@ -28,6 +28,7 @@ namespace FutuCalc.API.Controllers
             {
                 return CalculationResult.Error();
             }
+
             var equation = paddedEquation.DecodeBase64();
 
             try

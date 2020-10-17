@@ -11,7 +11,10 @@ namespace FutuCalc.Tests
         private ICalculator calculator;
 
         [SetUp]
-        public void Setup() { }
+        public void Setup()
+        {
+            calculator = new Calculator();
+        }
 
         [TestCase("7", 7)]
         [TestCase("07", 7)]
