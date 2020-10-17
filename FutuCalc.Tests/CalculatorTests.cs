@@ -80,7 +80,7 @@ namespace FutuCalc.Tests
         }
 
         [Test]
-        public void CorrectCalculation_ForInconsistentSpacing(string equation, double expected)
+        public void CorrectCalculation_ForInconsistentSpacing()
         {
             AssertCalculation("3+3 + 3-1 - 1", 7);
         }
@@ -94,7 +94,7 @@ namespace FutuCalc.Tests
         [Test]
         public void ExceptionThrown_ForNullEquation()
         {
-            Assert.Throws<NullReferenceException>(() => calculator.Calculate(null));
+            Assert.Throws<ArgumentNullException>(() => calculator.Calculate(null));
         }
 
         [TestCase("")]
