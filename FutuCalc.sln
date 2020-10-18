@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Dockerfile = Dockerfile
 		.gitignore = .gitignore
 		heroku.yml = heroku.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutuCalc.API", "FutuCalc.API\FutuCalc.API.csproj", "{F16D55B0-CDC1-4469-86D2-58E967F875F8}"

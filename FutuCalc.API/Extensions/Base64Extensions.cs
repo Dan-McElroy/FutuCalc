@@ -15,6 +15,10 @@ namespace FutuCalc.API.Extensions
         /// </returns>
         public static string PadForBase64(this string encoded)
         {
+            if (encoded.Length % 4 == 0)
+            {
+                return encoded;
+            }
             var paddedLength = encoded.Length + 4 - (encoded.Length % 4);
             return encoded.PadRight(paddedLength, '=');
         }
