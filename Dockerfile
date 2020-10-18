@@ -12,10 +12,9 @@ COPY . .
 WORKDIR "/src/FutuCalc.API"
 RUN dotnet build "FutuCalc.API.csproj" -c Release -o /app/build
 
-#Removed until initial framework complete
-#FROM build AS testing
-#WORKDIR "/src/FutuCalc.Tests"
-#RUN dotnet test "FutuCalc.Tests.csproj" -c Release -o /app/testing
+FROM build AS testing
+WORKDIR "/src/FutuCalc.Tests"
+RUN dotnet test "FutuCalc.Tests.csproj" -c Release -o /app/testing
 
 FROM build AS publish
 RUN dotnet publish "FutuCalc.API.csproj" -c Release -o /app/publish
