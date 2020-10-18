@@ -1,4 +1,4 @@
-﻿namespace FutuCalc.Core.Symbols
+﻿namespace FutuCalc.Core.Symbols.Operators
 {
     public class SubtractOperator : BinaryOperator, IStackSymbol
     {
