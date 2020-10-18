@@ -38,7 +38,7 @@ namespace FutuCalc.Core.Calculation.Postfix
         /// <returns>The result of the equation.</returns>
         /// <remarks>
         /// Uses a stack to keep track of the most recent operands in the list of symbols.
-        /// When an operator is reached in the symbol list, it operates on the most recent
+        /// When processing an operator in the symbol list, it operates on the most recent
         /// values in the stack.
         /// </remarks>
         /// <example>
