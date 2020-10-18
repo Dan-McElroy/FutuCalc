@@ -4,6 +4,6 @@ namespace FutuCalc.Core.Symbols
 {
     public interface IQueueSymbol : ISymbol
     {
-        void Process(ref Stack<double> values);
+        void Process(ref Stack<double> operands);
     }
 }

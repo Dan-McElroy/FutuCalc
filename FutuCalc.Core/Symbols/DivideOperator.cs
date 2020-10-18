@@ -1,6 +1,6 @@
 ﻿namespace FutuCalc.Core.Symbols
 {
-    public class DivideOperator : Operator, IStackSymbol
+    public class DivideOperator : BinaryOperator, IStackSymbol
     {
         public int Priority => 2;
 

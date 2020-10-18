@@ -11,9 +11,9 @@ namespace FutuCalc.Core.Symbols
             _value = value;
         }
 
-        public void Process(ref Stack<double> values)
+        public void Process(ref Stack<double> operands)
         {
-            values.Push(_value);
+            operands.Push(_value);
         }
     }
 }
