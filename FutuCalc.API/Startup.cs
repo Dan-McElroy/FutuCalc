@@ -1,4 +1,5 @@
 using FutuCalc.Core.Calculation;
+using FutuCalc.Core.Calculation.Postfix;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +21,7 @@ namespace FutuCalc.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<ICalculator, Calculator>();
+            services.AddScoped<ICalculator, PostfixCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

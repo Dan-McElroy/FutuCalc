@@ -1,5 +1,6 @@
 using System;
 using FutuCalc.Core.Calculation;
+using FutuCalc.Core.Calculation.Postfix;
 using NUnit.Framework;
 
 namespace FutuCalc.Tests
@@ -13,7 +14,7 @@ namespace FutuCalc.Tests
         [SetUp]
         public void Setup()
         {
-            calculator = new Calculator();
+            calculator = new PostfixCalculator();
         }
 
         [TestCase("7", 7)]
