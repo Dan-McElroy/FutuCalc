@@ -88,7 +88,7 @@ namespace FutuCalc.Tests
         [Test]
         public void CorrectCalculation_ForComplexEquation()
         {
-            AssertCalculation("2 * (23/(3*3))- 23 * (2*3)", 2 * (23/(3*3))- 23 * (2*3));
+            AssertCalculation("2 * (23/(3*3))- 23 * (2*3)", 2 * (23d/(3*3))- 23 * (2*3));
         }
 
         [Test]
