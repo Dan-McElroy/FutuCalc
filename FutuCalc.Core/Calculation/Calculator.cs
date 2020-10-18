@@ -8,7 +8,8 @@ namespace FutuCalc.Core.Calculation
 {
     public class Calculator : ICalculator
     {
-        private static readonly char[] operators = { '+', '-', '*', '/', '(', ')' };
+        private const string tokenFormat = @"\d+(\.\d+)?|\(|\)|\+|\-|\*|\/";
+        private const string legalEquationFormat = @"^(" + tokenFormat + "| )+$";
 
         public double Calculate(string equation)
         {
@@ -24,69 +25,58 @@ namespace FutuCalc.Core.Calculation
         }
 
         private static bool ContainsIllegalCharacters(string equation)
-            => !Regex.IsMatch(equation, @"^(\d+|\(|\)|\*|\-|\+|\/| )*$");
-
+        {
+            return !Regex.IsMatch(equation, legalEquationFormat);
+        }
 
         internal static IEnumerable<ISymbol> ConvertEquationToSymbolSeries(string equation)
         {
-            var symbolStrings = new List<string>();
+            var symbols = new List<ISymbol>();
 
-            var currentSymbol = string.Empty;
-            var processingOperand = true;
+            var tokens = Regex.Matches(equation, tokenFormat)
+                .Select(t => t.Value);
 
-            foreach (var token in equation.ToCharArray())
+            var unaryPossible = true;
+            foreach (var token in tokens)
             {
-                if (char.IsWhiteSpace(token))
-                {
-                    continue;
-                }
-                var isOperator = operators.Contains(token);
-                // if space, wrap up the last symbol if not empty and move on
-                // if digit or punctuation, add to currentSymbol
-                // if token, wrap up the last symbol if not empty, then add this one, and move on
-                if ((isOperator) && !string.IsNullOrEmpty(currentSymbol))
-                {
-                    symbolStrings.Add(currentSymbol);
-                    currentSymbol = string.Empty;
-                }
-                if (isOperator)
-                {
-                    symbolStrings.Add(token.ToString());
-                }
-                if (char.IsDigit(token) || token == '.')
-                {
-                    currentSymbol += token;
-                }
+                var symbol = ParseSymbol(token, unaryPossible);
+                unaryPossible = symbol is BinaryOperator;
+                symbols.Add(symbol);
             }
 
-            if (!string.IsNullOrEmpty(currentSymbol))
-            {
-                symbolStrings.Add(currentSymbol);
-            }
-            return symbolStrings.Select(ParseSymbol);
+            return symbols;
         }
 
-        internal static ISymbol ParseSymbol(string token)
+        internal static ISymbol ParseSymbol(string token, bool unaryPossible)
         {
             if (double.TryParse(token, out var value))
             {
                 return new Operand(value);
             }
-            if (token.Length > 1)
+            switch (token[0])
             {
-                throw new ArgumentException($"Non-numerical symbols can only be one character long, but found: {token}", nameof(token));
+                case '+':
+                    return new AddOperator();
+                case '-':
+                {
+                    if (unaryPossible)
+                    {
+                        return new NegateOperator();
+                    }
+                    return new SubtractOperator();
+                }
+                case '/':
+                    return new DivideOperator();
+                case '*':
+                    return new MultiplyOperator();
+                case '(':
+                    return new OpenBracket();
+                case ')':
+                    return new CloseBracket();
+                default:
+                    throw new ArgumentException(
+                        $"An invalid character was found while parsing the equation: {token[0]}", nameof(token));
             }
-            return token[0] switch
-            {
-                '+' => new AddOperator(),
-                '-' => new SubtractOperator(),
-                '/' => new DivideOperator(),
-                '*' => new MultiplyOperator(),
-                '(' => new OpenBracket(),
-                ')' => new CloseBracket(),
-                _ => throw new ArgumentException(
-                    $"An invalid character was found while parsing the equation: {token[0]}", nameof(token))
-            };
         }
 
         /// <summary>
